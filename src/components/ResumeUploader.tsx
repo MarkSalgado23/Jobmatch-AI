@@ -20,9 +20,10 @@ const validateResume = (text: string): boolean => {
 
 interface ResumeUploaderProps {
   onResumeExtracted: (text: string) => void;
+   disabled?: boolean;
 }
 
-const ResumeUploader: React.FC<ResumeUploaderProps> = ({ onResumeExtracted }) => {
+const ResumeUploader: React.FC<ResumeUploaderProps> = ({ onResumeExtracted,disabled  }) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,7 +35,7 @@ const ResumeUploader: React.FC<ResumeUploaderProps> = ({ onResumeExtracted }) =>
 
       if (!validateResume(text)) {
         alert("⚠️ This file doesn’t look like a resume. Please upload a valid one.");
-        // Reset input so user can select another file
+     
         if (fileInputRef.current) fileInputRef.current.value = "";
         return;
       }
@@ -70,6 +71,7 @@ const ResumeUploader: React.FC<ResumeUploaderProps> = ({ onResumeExtracted }) =>
         accept=".pdf"
         ref={fileInputRef}
         onChange={handleFileChange}
+         disabled={disabled}
       />
     </div>
   );
